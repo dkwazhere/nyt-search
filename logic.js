@@ -20,11 +20,38 @@ function runQuery(numArticles, queryURL) {
   // AJAX function
   $.ajax({ url: queryURL, method: "GET" }).done(function(NYTData) {
     for (var i = 0; i < numArticles; i++) {
-      console.log(NYTData.response.docs[i].headline.main);
-      console.log(NYTData.response.docs[i].document_type);
-      console.log(NYTData.response.docs[i].pub_date);
-      console.log(NYTData.response.docs[i].byline.original);
-      console.log(NYTData.response.docs[i].web_url);
+      // console.log(NYTData.response.docs[i].headline.main);
+      // console.log(NYTData.response.docs[i].document_type);
+      // console.log(NYTData.response.docs[i].pub_date);
+      // console.log(NYTData.response.docs[i].byline.original);
+      // console.log(NYTData.response.docs[i].web_url);
+
+      // Start dumping to HTML Here
+      var wellSection = $("<div>");
+      wellSection.addClass("well");
+      wellSection.attr("id", "articleWell-" + i);
+      $("#wellSection").append(wellSection);
+
+      // Attach content to the appropriate well
+      $("#articleWell-" + i).append(
+        "<h3>" + NYTData.response.docs[i].headline.main + "</h3>"
+      );
+      $("#articleWell-" + i).append(
+        "<h5>" + NYTData.response.docs[i].document_type + "</h5>"
+      );
+      $("#articleWell-" + i).append(
+        "<h5>" + NYTData.response.docs[i].pub_date + "</h5>"
+      );
+      $("#articleWell-" + i).append(
+        "<h5>" + NYTData.response.docs[i].byline.original + "</h5>"
+      );
+      $("#articleWell-" + i).append(
+        "<a href=" +
+          NYTData.response.docs[i].web_url +
+          ">" +
+          NYTData.response.docs[i].web_url +
+          "</a>"
+      );
     }
 
     // Logging to console.
