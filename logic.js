@@ -28,10 +28,39 @@ function runQuery(numArticles, queryURL) {
 // Main Process
 // ==============================
 $("#searchBtn").on("click", function() {
-  runQuery(
-    10,
-    "http://api.nytimes.com/svc/search/v2/articlesearch.json?api-key=5a3fcbf68ac1437080c5081b94c5726d&q=Obama"
-  );
+  queryTerm = $("#search")
+    .val()
+    .trim();
+  console.log(queryTerm);
+  // Add in the Search Term
+  var newURL = queryUrlBase + "&q=" + queryTerm;
+  console.log(newURL);
+
+  // Get # of records
+  numResults = $("#numRecords").val();
+
+  // Get the start year and end year
+  startYear = $("#startYear")
+    .val()
+    .trim();
+  endYear = $("#endYear")
+    .val()
+    .trim();
+
+  if (parseInt(startYear)) {
+    // Add the date imformation to the URL
+    startYear = startYear + "0101";
+    newURL = newURL + "&begin_date=" + startYear;
+  }
+
+  if (parseInt(endYear)) {
+    // Add the date imformation to the URL
+    endYear = endYear + "0101";
+    newURL = newURL + "&end_date=" + endYear;
+  }
+
+  // Send the AJAX call the newly assembled URL
+  runQuery(numResults, newURL);
   return false;
 });
 
