@@ -19,6 +19,8 @@ var articleCounter = 0;
 function runQuery(numArticles, queryURL) {
   // AJAX function
   $.ajax({ url: queryURL, method: "GET" }).done(function(NYTData) {
+    // Clear the wells from previous search
+    $("#wellSection").empty();
     for (var i = 0; i < numArticles; i++) {
       // console.log(NYTData.response.docs[i].headline.main);
       // console.log(NYTData.response.docs[i].document_type);
@@ -32,18 +34,26 @@ function runQuery(numArticles, queryURL) {
       wellSection.attr("id", "articleWell-" + i);
       $("#wellSection").append(wellSection);
 
+      if (NYTData.response.docs[i].headline != "null") {
+        $("#articleWell-" + i).append(
+          "<h3>" + NYTData.response.docs[i].headline.main + "</h3>"
+        );
+      }
+
+      if (
+        NYTData.response.docs[i].byline &&
+        NYTData.response.docs[i].hasOwnProperty("original")
+      ) {
+        $("#articleWell-" + i).append(
+          "<h5>" + NYTData.response.docs[i].byline.original + "</h5>"
+        );
+      }
       // Attach content to the appropriate well
-      $("#articleWell-" + i).append(
-        "<h3>" + NYTData.response.docs[i].headline.main + "</h3>"
-      );
       $("#articleWell-" + i).append(
         "<h5>" + NYTData.response.docs[i].document_type + "</h5>"
       );
       $("#articleWell-" + i).append(
         "<h5>" + NYTData.response.docs[i].pub_date + "</h5>"
-      );
-      $("#articleWell-" + i).append(
-        "<h5>" + NYTData.response.docs[i].byline.original + "</h5>"
       );
       $("#articleWell-" + i).append(
         "<a href=" +
