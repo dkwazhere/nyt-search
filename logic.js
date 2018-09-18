@@ -19,7 +19,7 @@ var articleCounter = 0;
 function runQuery(numArticles, queryURL) {
   // AJAX function
   $.ajax({ url: queryURL, method: "GET" }).done(function(NYTData) {
-    for (var i = 0; i < NYTData.response.docs.length; i++) {
+    for (var i = 0; i < numArticles; i++) {
       console.log(NYTData.response.docs[i].headline.main);
       console.log(NYTData.response.docs[i].document_type);
       console.log(NYTData.response.docs[i].pub_date);
