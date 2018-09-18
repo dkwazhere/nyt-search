@@ -19,8 +19,17 @@ var articleCounter = 0;
 function runQuery(numArticles, queryURL) {
   // AJAX function
   $.ajax({ url: queryURL, method: "GET" }).done(function(NYTData) {
+    for (var i = 0; i < NYTData.response.docs.length; i++) {
+      console.log(NYTData.response.docs[i].headline.main);
+      console.log(NYTData.response.docs[i].document_type);
+      console.log(NYTData.response.docs[i].pub_date);
+      console.log(NYTData.response.docs[i].byline.original);
+      console.log(NYTData.response.docs[i].web_url);
+    }
+
     // Logging to console.
     console.log(queryURL);
+    console.log(numArticles);
     console.log(NYTData);
   });
 }
@@ -28,13 +37,12 @@ function runQuery(numArticles, queryURL) {
 // Main Process
 // ==============================
 $("#searchBtn").on("click", function() {
+  // Get search term
   queryTerm = $("#search")
     .val()
     .trim();
-  console.log(queryTerm);
   // Add in the Search Term
   var newURL = queryUrlBase + "&q=" + queryTerm;
-  console.log(newURL);
 
   // Get # of records
   numResults = $("#numRecords").val();
@@ -64,6 +72,7 @@ $("#searchBtn").on("click", function() {
   return false;
 });
 
+// PSEUDO
 // 1. Retrieve User inputs and convert to variables
 // 2. Use those variables to run AJAX call to the nytimes.
 // 3. Break down the NYT object to useable fields.
