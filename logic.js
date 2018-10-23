@@ -8,7 +8,7 @@ var endYear = 0;
 
 // URL Base
 var queryUrlBase =
-  "http://api.nytimes.com/svc/search/v2/articlesearch.json?api-key=" + authKey;
+  "https://api.nytimes.com/svc/search/v2/articlesearch.json?api-key=" + authKey;
 
 // Variable to track number of articles
 var articleCounter = 0;
